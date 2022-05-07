@@ -2,8 +2,6 @@ import { InputFile } from "styles/Components/CommonStyle";
 import { ChangeButton } from "styles/User/ProfileStyle";
 import { LABEL } from "utils/constants";
 import { useRef } from "react";
-import { uploadFile } from "utils/api";
-import { useQueryClient } from "react-query";
 
 /**
  * 파일 업로드 컴포넌트 입니다.
@@ -17,6 +15,9 @@ function FileUpload({ prevImage = "", setEditImg, setImgUrl }) {
 
   const handleUploadFile = async (e) => {
     e.preventDefault();
+    if (e.target.files[0].size >= 5242880)
+      return alert("이미지는 5MB 이하만 업로드 가능합니다.");
+
     const formData = new FormData();
     formData.append("filename", e.target.files[0]);
     formData.append("prevImage", prevImage);

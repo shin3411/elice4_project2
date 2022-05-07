@@ -24,7 +24,6 @@ export default function TestResult() {
   const isVisitor = userState._id === "visitor";
   const data = {
     nickname: isVisitor ? "visitor" : userState.nickname,
-    score: isVisitor ? myScore : location.state.result,
   };
 
   const recommendStep = (score) => {
@@ -50,7 +49,7 @@ export default function TestResult() {
 
   const userNavigate = () => {
     if (isVisitor) navigate(`/user/login`);
-    else navigate(`/training/${handleClickNavBtn(data.score)}`);
+    else navigate(`/training/${handleClickNavBtn(myScore)}`);
   };
 
   return (
@@ -60,10 +59,11 @@ export default function TestResult() {
           <mark>{data.nickname} </mark>님의 점수는
         </TestResultUserName>
         <TestResultUserScore>
-          <mark>{data.score || "0"}/100</mark> 입니다!
+          <mark>{isVisitor ? `${location.state.result}` : myScore}/100</mark>
+          입니다!
         </TestResultUserScore>
         <TestResultUserRecommand>
-          {recommendStep(data.score)}
+          {recommendStep(isVisitor ? `${location.state.result}` : myScore)}
         </TestResultUserRecommand>
         <TestResultNavBtn onClick={userNavigate}>
           {isVisitor ? "로그인 하러가기" : "서비스 바로가기"}

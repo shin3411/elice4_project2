@@ -11,7 +11,6 @@ export default function TestContainer() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { userState } = queryClient.getQueryData("userState");
-  console.log(userState);
   const { tests } = useTestQuery();
 
   const [step, setStep] = useState(0);
@@ -45,9 +44,8 @@ export default function TestContainer() {
         userId: userState._id,
         submission: totalMySelectedAnswer,
       });
-      console.log(res.status);
       queryClient.removeQueries("tests");
-      navigate("/test/result", { state: { result: res.result } });
+      navigate("/test/result", { state: { result: res.data.result } });
     } catch (e) {
       console.log(e);
     }

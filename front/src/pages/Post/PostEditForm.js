@@ -61,15 +61,14 @@ function PostingEditForm({ setIsEdit }) {
       };
 
       if (editPostImg) {
-        Promise.all([
+        await Promise.all([
           put(`posts/${params.postId}`, posting),
           uploadFile(`posts/${params.postId}/uploadImage`, editPostImg),
-        ]).then(() => {
-          queryClient.invalidateQueries("post");
-          queryClient.invalidateQueries("posts");
-        });
+        ]);
       } else await put(`posts/${params.postId}`, posting);
 
+      queryClient.invalidateQueries("post");
+      queryClient.invalidateQueries("posts");
       setIsEdit((cur) => !cur);
     } catch (error) {
       throw new Error(error);

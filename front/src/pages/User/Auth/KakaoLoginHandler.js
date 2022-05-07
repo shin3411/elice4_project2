@@ -24,7 +24,7 @@ function KakaoLoginHandler() {
         localStorage.setItem("userToken", jwtToken);
 
         queryClient.invalidateQueries("userState");
-        navigate("/");
+        navigate("/main");
       } catch (err) {
         alert(FAIL_MESSAGE.LOGIN);
         navigate("/user/login");
