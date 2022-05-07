@@ -45,7 +45,6 @@ class Post {
       query,
       extraQueryList
     );
-
     return posts;
   }
 

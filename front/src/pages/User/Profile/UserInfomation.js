@@ -6,12 +6,12 @@ import {
   CardLikeCountBox,
   CardLikePost,
   CardMyInfo,
+  ProfileHeading,
   ProfileIntroduce,
   ProfileNickName,
   ProfilePostCount,
   ProfileTitleBox,
 } from "styles/User/ProfileStyle";
-import { HeadingTwo } from "styles/Components/CommonStyle";
 import { LABEL } from "utils/constants";
 import { img } from "utils/imgImport";
 
@@ -41,7 +41,7 @@ function UserInfomation() {
       </CardIntroduce>
       <CardMyInfo>
         <CardLikePost>
-          <HeadingTwo>{LABEL.USER_EXP}</HeadingTwo>
+          <ProfileHeading>{LABEL.USER_EXP}</ProfileHeading>
           <CardLikeCountBox>
             <ProfilePostCount>
               {curExp} / {maxExp}
@@ -50,7 +50,7 @@ function UserInfomation() {
           </CardLikeCountBox>
         </CardLikePost>
         <CardLikePost>
-          <HeadingTwo>{LABEL.USER_POST}</HeadingTwo>
+          <ProfileHeading>{LABEL.USER_POST}</ProfileHeading>
           <CardLikeCountBox>
             <Link to={window.location.pathname}>
               <ProfilePostCount>{posts}</ProfilePostCount>
@@ -58,7 +58,7 @@ function UserInfomation() {
           </CardLikeCountBox>
         </CardLikePost>
         <CardLikePost>
-          <HeadingTwo>{LABEL.USER_LIKE_POST}</HeadingTwo>
+          <ProfileHeading>{LABEL.USER_LIKE_POST}</ProfileHeading>
           <CardLikeCountBox>
             <Link to={window.location.pathname + "?likes"}>
               <ProfilePostCount>{postLikes.length}</ProfilePostCount>

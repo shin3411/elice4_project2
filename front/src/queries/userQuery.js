@@ -98,7 +98,7 @@ export const useUserLoginHandler = (setShowAlert = () => {}) => {
         const jwtToken = res.data.token;
         localStorage.setItem("userToken", jwtToken);
         queryClient.invalidateQueries("userState");
-        navigate("/");
+        navigate("/main");
       },
       onError: () => setShowAlert(true),
     }

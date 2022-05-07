@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Slide from "components/Slide/Slide";
 import { Img } from "styles/Components/ComponentStyle";
 import {
@@ -16,6 +17,8 @@ import {
   TextEmphasize,
   Quote,
   GraphBox,
+  IntroButton,
+  IntroWrap,
 } from "styles/Home/HomeStyle";
 import { img } from "utils/imgImport";
 
@@ -25,15 +28,14 @@ import PisaEmployee from "./PisaEmployee";
 import PisaSubjectScoreBar from "./PisaSubjectsScoreBar";
 
 const BANNERS = [
-  <Img url={img.banner1} alt={"banner1"} />,
-  <Img url={img.banner2} alt={"banner2"} />,
-  <Img url={img.banner3} alt={"banner3"} />,
+  <Img url={img.bannerImage} alt={"banner5"} />,
+  <Img url={img.bannerImage2} alt={"banner5"} />,
 ];
 
 function Home() {
   const fullpageRef = useRef();
   const [scrollIndex, setScrollIndex] = useState(1);
-
+  const navigate = useNavigate();
   const dotsRef = useRef();
   const dotsLength = fullpageRef.current?.childNodes.length;
   const dotsIndex = Array.from({ length: dotsLength - 1 }, (_, i) => i + 1);
@@ -50,32 +52,26 @@ function Home() {
         // 0 -> 1
         scroll(pageHeight);
         setScrollIndex(2);
-        console.log(scrollTop);
       } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
         // // 1 -> 2
         scroll(scrollTop + pageHeight);
         setScrollIndex(3);
-        console.log(scrollTop);
       } else if (scrollTop >= pageHeight * 2 && scrollTop < pageHeight * 3) {
         // 2 -> 3
         scroll(scrollTop + pageHeight);
         setScrollIndex(4);
-        console.log(scrollTop);
       } else if (scrollTop >= pageHeight * 3 && scrollTop < pageHeight * 4) {
         // 3 -> 4
         scroll(scrollTop + pageHeight);
         setScrollIndex(5);
-        console.log(scrollTop);
       } else if (scrollTop >= pageHeight * 4 && scrollTop < pageHeight * 5) {
         // 4 -> 5
         scroll(scrollTop + pageHeight);
         setScrollIndex(6);
-        console.log(scrollTop);
       } else if (scrollTop >= pageHeight * 5 && scrollTop < pageHeight * 6) {
         // 5 -> 6
         scroll(scrollTop + pageHeight);
         setScrollIndex(7);
-        console.log(scrollTop);
       }
     } else {
       // 스크롤 올릴때
@@ -83,17 +79,14 @@ function Home() {
         // 1 -> 0
         scroll(0);
         setScrollIndex(1);
-        console.log(scrollTop);
       } else if (scrollTop >= pageHeight * 2 && scrollTop < pageHeight * 3) {
         // 2 -> 1
         scroll(pageHeight);
         setScrollIndex(2);
-        console.log(scrollTop);
       } else if (scrollTop >= pageHeight * 3 && scrollTop < pageHeight * 4) {
         // 3 -> 2
         scroll(pageHeight * 2);
         setScrollIndex(3);
-        console.log(scrollTop);
       } else if (
         scrollTop >= pageHeight * 4 &&
         scrollTop < pageHeight * 5 - 80
@@ -101,7 +94,6 @@ function Home() {
         // 4 -> 3
         scroll(pageHeight * 3);
         setScrollIndex(4);
-        console.log(scrollTop);
       } else if (
         scrollTop >= pageHeight * 5 - 80 &&
         scrollTop < pageHeight * 6 - 80
@@ -109,12 +101,13 @@ function Home() {
         // 5 -> 4
         scroll(pageHeight * 4);
         setScrollIndex(5);
-        console.log(scrollTop);
-      } else if (scrollTop >= pageHeight * 6 - 80) {
+      } else if (
+        scrollTop >= pageHeight * 6 - 80 &&
+        scrollTop < pageHeight * 7 - 80
+      ) {
         // 6 -> 5
         scroll(pageHeight * 5);
         setScrollIndex(6);
-        console.log(scrollTop);
       }
     }
   };
@@ -167,7 +160,7 @@ function Home() {
             </TextTitle>
 
             <TextParagraph>
-              3년에 한번씩 95개 국가의 15세 아동을 대상으로 실생활의 문제를
+              3년에 한번씩 79개 국가의 15세 아동을 대상으로 실생활의 문제를
               해결하는 <TextEmphasize>읽기, 수학, 과학</TextEmphasize> 능력을
               측정합니다.
             </TextParagraph>
@@ -199,7 +192,7 @@ function Home() {
           <TextContent>
             <TextTitle>여러 나라의 PISA 점수 어떻게 변하고 있을까요?</TextTitle>
             <TextParagraph>
-              2006년부터 2018년까지 PISA 평균점수가 가장 높은
+              2006년부터 2018년까지 PISA 평균 읽기점수가 가장 높은
               <TextEmphasize> 15개 국가의 </TextEmphasize> 데이터를 연도별로
               뽑아봤습니다.
             </TextParagraph>
@@ -213,7 +206,7 @@ function Home() {
               </TextParagraph>
             </TextParagraph>
             <TextParagraph>
-              나라별 PISA 점수를 확인해보세요.{" "}
+              나라별 PISA 읽기점수를 확인해보세요.{" "}
               <TextParagraph>
                 국기를 선택하시면 각 나라의 PISA 점수를 연도별로 확인할 수
                 있어요.
@@ -275,8 +268,7 @@ function Home() {
             <TextParagraph>
               GDP가 높다고 무조건 잘 사는 나라이거나 행복한 나라는 아니지만,
               Pisa를 통해 어느정도 학생들의 미래
-              <TextEmphasize> 경제활동 가능성</TextEmphasize>을 볼 수 있을 것
-              같아요.
+              <TextEmphasize> 경제활동 가능성</TextEmphasize>을 볼 수 있습니다.
             </TextParagraph>
           </TextContent>
           <GraphBox>
@@ -306,14 +298,21 @@ function Home() {
               있지만,{" "}
               <TextParagraph>문해력은 점점 감소하고 있습니다.</TextParagraph>
             </TextParagraph>
-            <TextParagraph>
-              우리 문해력을 높이기 위해 함께 노력해볼까요?
-            </TextParagraph>
           </TextContent>
           <GraphBox>
             <PisaEmployee></PisaEmployee>
           </GraphBox>
         </HomeContents>
+      </Homepage>
+      <Homepage>
+        <IntroWrap>
+          <HomeTitle>그럼 이제 문해력을 높이러 가볼까요?</HomeTitle>
+          <HomeContents>
+            <IntroButton onClick={() => navigate("/main")}>
+              문해력 높이기
+            </IntroButton>
+          </HomeContents>
+        </IntroWrap>
       </Homepage>
     </HomeContainer>
   );

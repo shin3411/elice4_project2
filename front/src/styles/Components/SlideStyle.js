@@ -17,6 +17,7 @@ export const SlideContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  height: 100%;
 `;
 export const SlideInner = styled.div`
   width: 100vw;

@@ -66,19 +66,24 @@ export const CardLikeCountBox = styled(FlexBoxCenter)`
 `;
 
 export const ProfilePostCount = styled(HeadingTwo)`
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-top: 6px;
   text-align: center;
   display: flex;
+  flex-direction: column;
   gap: 5px;
 `;
 
 export const ProfileNickName = styled(HeadingTwo)`
   color: black;
-  font-size: 2rem;
+  font-size: 1.8rem;
 `;
 
 export const ProfileIntroduce = styled.p`
+  font-size: 1.3rem;
+`;
+
+export const ProfileHeading = styled(HeadingTwo)`
   font-size: 1.4rem;
 `;
 

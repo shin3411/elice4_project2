@@ -19,6 +19,7 @@ export const HeadingTwo = styled.h2`
 `;
 
 export const InputBox = styled.input`
+  width: 50%;
   border: solid 2px #c99c6e;
   border-radius: 8px;
   height: 30px;

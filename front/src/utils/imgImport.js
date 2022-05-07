@@ -27,4 +27,13 @@ export const img = {
     `${process.env.PUBLIC_URL}/assets/img/rank1.png`,
     `${process.env.PUBLIC_URL}/assets/img/rank2.png`,
   ],
+  training: [
+    `${process.env.PUBLIC_URL}/assets/img/word.jpeg`,
+    `${process.env.PUBLIC_URL}/assets/img/self.jpeg`,
+    `${process.env.PUBLIC_URL}/assets/img/transcription.jpeg`,
+    `${process.env.PUBLIC_URL}/assets/img/letter.png`,
+  ],
+
+  bannerImage: `${process.env.PUBLIC_URL}/assets/img/bannerImage.png`,
+  bannerImage2: `${process.env.PUBLIC_URL}/assets/img/bannerImage2.png`,
 };

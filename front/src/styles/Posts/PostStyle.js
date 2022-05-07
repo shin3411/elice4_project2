@@ -225,9 +225,10 @@ export const PreviewImg = styled.div`
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
 `;
 
 export const PostChangeImgBox = styled.div`
-  width: 10%;
+  width: 20%;
+  margin-bottom: 10px;
 `;

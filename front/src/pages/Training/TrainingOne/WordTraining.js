@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useWordsQuery } from "queries/wordsQuery";
 import { useQueryClient } from "react-query";
 import {
@@ -26,8 +27,9 @@ import { CONSONANT } from "utils/constants";
 
 export default function WordTraining({ subject }) {
   const answerRef = useRef();
+  const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
-  const [curIndex, setCurIndex] = useState(progress);
+  const [curIndex, setCurIndex] = useState(0);
   const [myAnswer, setMyAnswer] = useState("");
   const queryClient = useQueryClient();
   const { userState } = queryClient.getQueryData("userState");
@@ -65,7 +67,10 @@ export default function WordTraining({ subject }) {
     e.preventDefault();
     if (myAnswer === words[curIndex].word.replace(/(\s*)/g, "")) {
       answerRef.current.innerHTML = "<mark>정답입니다!<mark>";
-      if (curIndex === progress) setProgress((cur) => cur + 1);
+      if (curIndex === progress) {
+        setProgress((cur) => cur + 1);
+        clickSetQuiz(1);
+      }
     } else answerRef.current.innerHTML = "틀렸습니다..";
   };
 
@@ -81,7 +86,7 @@ export default function WordTraining({ subject }) {
   const stopWordTraining = async () => {
     try {
       await post("userwords", { word: words[progress - 1].word });
-      alert("저장 되었습니다.");
+      navigate("/main");
     } catch (e) {}
   };
 
@@ -131,7 +136,9 @@ export default function WordTraining({ subject }) {
               <ArrowForwardIosIcon fontSize="large" />
             </NextBtn>
           </ButtonBox>
-          <ClearBtn onClick={() => stopWordTraining()}>저장하기</ClearBtn>
+          <ClearBtn onClick={() => stopWordTraining()}>
+            저장하고 나가기
+          </ClearBtn>
         </>
       )}
     </WordTrainingContainer>

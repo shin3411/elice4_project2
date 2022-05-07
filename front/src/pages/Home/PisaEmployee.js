@@ -9,7 +9,7 @@ import {
 } from "chart.js";
 import { Scatter } from "react-chartjs-2";
 import literacyEmployeeScatter from "../../data/literacyEmployeeScatter.json";
-import womenliteracyEmployeeReg from "../../data/womenliteracyEmployeeReg.json";
+import literacyEmployeeReg from "../../data/literacyEmployeeReg.json";
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -24,7 +24,7 @@ export const options = {
       },
     },
     legend: {
-      position: "chartArea",
+      position: "top",
       align: "start",
       borderWidth: 0,
     },
@@ -36,10 +36,18 @@ export const options = {
       grid: {
         display: false,
       },
+      title: {
+        display: true,
+        text: "employees(%)",
+      },
     },
     x: {
       grid: {
         display: false,
+      },
+      title: {
+        display: true,
+        text: "PISA",
       },
     },
   },
@@ -61,7 +69,7 @@ export const data = {
   datasets: [
     {
       type: "scatter",
-      label: "literacy employee",
+      label: "employee",
       data: Array.from(literacyEmployeeScatter[0].data, (v) => ({
         x: v.x,
         y: v.y,
@@ -73,7 +81,7 @@ export const data = {
     {
       type: "line",
       label: "Regression",
-      data: womenliteracyEmployeeReg[0].data,
+      data: literacyEmployeeReg[0].data,
       borderColor: "#F8D563",
       backgroundColor: "#F8D563",
     },

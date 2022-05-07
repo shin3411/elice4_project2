@@ -20,7 +20,7 @@ export const HomeContainer = styled.section`
 export const FullBanner = styled.div`
   height: calc(100vh - 80px);
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: #f5efea;
   box-sizing: border-box;
 `;
 export const Dot = styled.div`
@@ -70,11 +70,11 @@ export const Homepage = styled.div`
 
 export const HomeTitle = styled.h1`
   font-size: 36px;
-  margin: 1rem 0 1.4rem 0;
+  margin: 1rem 2rem 1.4rem 2rem;
   @media only screen and (max-width: 1300px) {
   }
-  @media only screen and (max-width: 400px) {
-    font-size: 1.6rem;
+  @media only screen and (max-width: 500px) {
+    font-size: 1.8rem;
   }
 `;
 
@@ -100,7 +100,7 @@ export const GraphBox = styled.div`
     width: 60%;
   }
   @media only screen and (max-width: 800px) {
-    width: 40%;
+    width: 100vw;
   }
 `;
 
@@ -115,7 +115,7 @@ export const TextContent = styled.div`
     width: 60%;
   }
   @media only screen and (max-width: 800px) {
-    width: 40%;
+    width: 80vw;
   }
 `;
 
@@ -150,6 +150,10 @@ export const CountryButton = styled.button`
   height: 21px;
   margin: 1rem 0.5rem 0 0;
   box-shadow: 2px 2px 2px #503d3f;
+  @media only screen and (max-width: 560px) {
+    width: 24px;
+    height: 18px;
+  }
 `;
 
 export const FlagButton = styled.img`
@@ -165,9 +169,39 @@ export const FlagButton = styled.img`
     margin-left: 1px;
     box-shadow: none;
   }
+  @media only screen and (max-width: 560px) {
+    width: 24px;
+    height: 18px;
+  }
 `;
 
 export const Buttons = styled.div`
   display: flex;
   justify-content: center;
+  @media only screen and (max-width: 800px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+`;
+
+export const IntroButton = styled.button`
+  width: 10rem;
+  height: 4rem;
+  border-radius: 2rem;
+  background-color: #c48f5a;
+  color: white;
+  font-size: 1.4rem;
+  padding: 1rem;
+  margin-top: 8rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const IntroWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 `;

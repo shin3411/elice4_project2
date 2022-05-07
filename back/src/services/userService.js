@@ -46,7 +46,6 @@ class userAuthService {
         "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
-
     user = await User.findById({ userId: user._id });
     // 비밀번호 일치 여부 확인
     const correctPasswordHash = user.password;
@@ -61,6 +60,7 @@ class userAuthService {
     }
 
     const secretKey = config.jwtKey || "jwt-secret-key";
+
     const token = jwt.sign({ userId: user._id }, secretKey);
 
     const loginUser = {
@@ -188,7 +188,6 @@ class userAuthService {
   // 유저 삭제 (회원 탈퇴)
   static async deleteUser({ userId }) {
     // 해당 유저 삭제
-    
     try {
       const user = await User.findById({ userId });
       const deletedResults =

@@ -13,7 +13,7 @@ export const PostingTitleBox = styled.div`
   align-items: center;
 `;
 export const PostingTitle = styled.input`
-  width: 100%;
+  width: 50%;
   margin-bottom: 1.5rem;
   font-size: 2.5rem;
   border: none;
@@ -102,7 +102,7 @@ export const PostingButton = styled.button`
 export const PostingMessage = styled.span`
   font-size: 14px;
   color: #d1985f;
-  margin-left: 10px;
+  margin: 8px 0 0 10px;
   @media only screen and (max-width: 400px) {
     display: none;
   }

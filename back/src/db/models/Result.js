@@ -33,7 +33,7 @@ class Result {
         const deletedResult = await ResultModel.deleteOne({ userId });
         return deletedResult;
     }
-    
+
     static async delete({ resultId }) {
         const deletedResult = await ResultModel.deleteOne({ _id: resultId });
         return deletedResult;

@@ -60,13 +60,15 @@ function PostingEditForm({ setIsEdit }) {
         userId: userState._id,
       };
 
-      Promise.all([
-        put(`posts/${params.postId}`, posting),
-        uploadFile(`posts/${params.postId}/uploadImage`, editPostImg),
-      ]).then(() => {
-        queryClient.invalidateQueries("post");
-        queryClient.invalidateQueries("posts");
-      });
+      if (editPostImg) {
+        Promise.all([
+          put(`posts/${params.postId}`, posting),
+          uploadFile(`posts/${params.postId}/uploadImage`, editPostImg),
+        ]).then(() => {
+          queryClient.invalidateQueries("post");
+          queryClient.invalidateQueries("posts");
+        });
+      } else await put(`posts/${params.postId}`, posting);
 
       setIsEdit((cur) => !cur);
     } catch (error) {

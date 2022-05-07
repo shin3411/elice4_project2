@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Chart as ChartJS,
-  CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
@@ -21,12 +20,20 @@ const options = {
       grid: {
         display: false,
       },
+      title: {
+        display: true,
+        text: "GDP",
+      },
     },
     x: {
       min: 330,
       max: 560,
       grid: {
         display: false,
+      },
+      title: {
+        display: true,
+        text: "PISA",
       },
     },
   },
@@ -38,7 +45,6 @@ const options = {
   plugins: {
     legend: {
       position: "top",
-      // align: "start",
       borderWidth: 0,
     },
     title: {

@@ -34,6 +34,10 @@ const options = {
   scales: {
     y: {
       min: 480,
+      title: {
+        display: true,
+        text: "PISA",
+      },
     },
   },
 };

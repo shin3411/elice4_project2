@@ -56,7 +56,8 @@ function Posting() {
 
       const res = await post("posts", posting);
       const postId = res.data.newPost[0]._id;
-      await uploadFile(`posts/${postId}/uploadImage`, editPostImg);
+      if (editPostImg)
+        await uploadFile(`posts/${postId}/uploadImage`, editPostImg);
       navigate(`/posts/${postId}`);
     } catch (error) {
       throw new Error(error);

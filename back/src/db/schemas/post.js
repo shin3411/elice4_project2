@@ -60,8 +60,6 @@ PostSchema.virtual("userLikes", {
   foreignField: "postLikes"
 });
 
-
-
 const PostModel = model("Post", PostSchema);
 
 export { PostModel };
