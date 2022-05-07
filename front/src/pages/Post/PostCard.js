@@ -63,11 +63,12 @@ function PostCard({ userInfo, isDisabled, post }) {
           </PostsContent>
         </PostsContentWrap>
         <PostsContentWrap>
-          {post.tags?.map((tag, index) => (
-            <Link to={`/posts?tag=${tag}`} key={index}>
-              <Tag>#{tag}</Tag>
-            </Link>
-          ))}
+          {post.tags[0].length !== 0 &&
+            post.tags?.map((tag, index) => (
+              <Link to={`/posts?tag=${tag}`} key={index}>
+                <Tag>#{tag}</Tag>
+              </Link>
+            ))}
         </PostsContentWrap>
         <PostUserContainer>
           <PostsWriter>

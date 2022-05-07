@@ -140,11 +140,12 @@ function Post() {
               </PostLikeContainer>
             </PostHeader>
             <PostFooter>
-              {data.tags?.map((tag, index) => (
-                <Link to={`/posts?tag=${tag}`} key={index}>
-                  <Tag>#{tag}</Tag>
-                </Link>
-              ))}
+              {data.tags[0].length !== 0 &&
+                data.tags?.map((tag, index) => (
+                  <Link to={`/posts?tag=${tag}`} key={index}>
+                    <Tag>#{tag}</Tag>
+                  </Link>
+                ))}
             </PostFooter>
             <PostBody>
               <PostBodyWrap>
