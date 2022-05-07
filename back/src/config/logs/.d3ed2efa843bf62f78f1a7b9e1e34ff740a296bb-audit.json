@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\user\\Desktop\\코딩 관련\\엘리스 4기\\[3] 2차 팀프로젝트\\sample-project\\back\\src\\config\\logs\\.d3ed2efa843bf62f78f1a7b9e1e34ff740a296bb-audit.json",
+    "files": [
+        {
+            "date": 1651906722778,
+            "name": "C:\\Users\\user\\Desktop\\코딩 관련\\엘리스 4기\\[3] 2차 팀프로젝트\\sample-project\\back\\src\\config\\logs\\2022-05-07.log",
+            "hash": "b7fcc4dd39923f25981379e86a9ffea1"
+        }
+    ],
+    "hashType": "md5"
+}

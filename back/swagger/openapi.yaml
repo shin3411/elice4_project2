@@ -1,0 +1,1142 @@
+openapi: 3.0.0
+info:
+  title: 문해한 하루 API
+  description: 문해한 하루 API 문서입니다.
+  version: 0.1.9
+servers:
+  - url: https://elice-kdt-ai-4th-team02.elicecoding.com
+    description: Server(production)
+  - url: http://localhost:5001
+    description: Server(dev)
+    
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    # optional, arbitrary value for documentation purposes
+  
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 6273ed6490b074ccd0453dd9
+        nickname: 
+          type: string
+          example: 나는abcde
+        email: 
+          type: string
+          example: "abcde@abc.com"
+        badge: 
+          type: array
+          items: {}
+        level:
+          type: integer
+          example: 1
+        point:
+          type: integer
+          example: 10
+        postLikes:
+          type: array
+          items: {}
+        profileUrl:
+          type: string
+          example: "https://team2.cdn.ntruss.com/users/default.png"
+        kakaoId:
+          type: integer
+          example: 12345678
+        introduce:
+          type: string
+          example: "안녕하세요 나는abcde입니다."
+      # Both properties are required
+      required:  
+        - id
+        - nickname
+        - email
+        - password
+    UserRegister:
+      type: object
+      properties:
+        email: 
+          type: string
+          example: "abcdef@abc.com"
+        password:
+          type: string
+          example: abcd1234
+        nickname:
+          type: string
+          example: 나는abcdef
+      required:
+        - email
+        - password
+        - nickname
+    UserLogin:
+      type: object
+      properties:
+        email: 
+          type: string
+          example: "abcdef@abc.com"
+        password:
+          type: string
+          example: abcd1234
+      required:
+        - email
+        - password
+    PostUpload:
+      type: object
+      properties:
+        title: 
+          type: string
+          example: "오늘은 신나는 토요일"
+        content:
+          type: string
+          example: "오늘은 신나는 토요일이고 내일은 더 신나는 일요일이다."
+        tags:
+          type: array
+          items: {}
+          description: "ex> [일상, 토요일, ...]"
+      required:
+        - title
+        - content
+    Post:
+      type: object
+      properties:
+        title: 
+          type: string
+          example: "오늘은 신나는 토요일"
+        content:
+          type: string
+          example: "오늘은 신나는 토요일이고 내일은 더 신나는 일요일이다."
+        tags:
+          type: array
+          items: {}
+          description: "ex> [일상, 토요일, ...]"
+        subjectId:
+          type: string
+          example: "626f9108187d6e5687442e3b"
+        author:
+          type: string
+          example: "나는abcde"
+        userId:
+          type: string
+          example: "626f9108187d6e5687442e3b(objectId)"
+        likeCount:
+          type: integer
+          example: 10
+        imageUrl:
+          type: string
+          example: https://team2.cdn.ntruss.com/posts/default.png
+        category:
+          type: string
+          example: 산문
+      required:
+        - title
+        - content
+        - subjectId
+        - author
+        - userId
+    CommentUpload:
+      type: object
+      properties:
+        content: 
+          type: string
+          example: "맞아요! 오늘은 신나는 토요일이에요!"
+        userId:
+          type: string
+          example: "6273f9e181f72840e1e241ab"
+        author:
+          type: string
+          example: 나는abcde
+      required:
+        - content
+        - userId
+        - author
+    Comment:
+      type: object
+      properties:
+        postId: 
+          type: string
+          example: "626f9108187d6e5687442e3b"
+        content:
+          type: string
+          example: "맞아요! 오늘은 신나는 토요일이에요!"
+        author:
+          type: string
+          example: "나는abcde"
+        userId:
+          type: string
+          example: "626f9108187d6e5687442e3b"
+        parentId:
+          type: string
+          example: "626f9108187d6e5687442e3b"
+        isDeleted:
+          type: boolean
+          example: false
+      required:
+        - title
+        - content
+        - subjectId
+        - author
+        - userId
+    Subject:
+      type: object
+      properties:
+        subject: 
+          type: string
+          example: "나의 일상"
+        level:
+          type: integer
+          example: 2
+        category:
+          type: string
+        point:
+          type: integer
+          example: 10
+        id:
+          type: string
+          example: "626f9108187d6e5687442e3b"
+      required:
+        - subject
+        - level
+        - point
+    Test:
+      type: object
+      properties:
+        num: 
+          type: integer
+          example: 1
+        question:
+          type: string
+          example: 문맥상 괄호 안에 가장 적합한 단어를 고르시오.
+        questionType:
+          type: string
+          example: 객관식
+        content:
+          type: string
+          example: "빨가면 __"
+        choices:
+          type: object
+          example: {"1": "사과"}
+      required:
+        - num
+        - question
+        - questionType
+        - choices
+    Quiz:
+      type: object
+      properties:
+        num: 
+          type: integer
+          example: 1
+        word:
+          type: string
+          example: 사흘
+        meaning:
+          type: string
+          example: 3일
+      required:
+        - num
+        - word
+        - meaning
+            
+  parameters:
+    sortFieldParams:
+      name: sortField
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 정렬 field
+    sortTypeParams:
+      name: sortType
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 정렬 타입
+    pageParams:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: 페이지 번호
+    limitParams:  
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: 한 페이지에 보여줄 데이터 개수
+    userParams:
+      name: userId
+      in: path
+      required: true
+      description: user의 등록 id입니다. (objectId)
+      schema:
+        type : string
+        example: 6273ed6490b074ccd0453dd9
+    postParams:
+      name: postId
+      in: path
+      required: true
+      description: 게시글의 id 입니다. (objectId)
+      schema:
+        type : string
+        example: 6273f9e181f72840e1e241ab
+    commentParams:
+      name: commentId
+      in: path
+      required: true
+      description: 댓글의 id 입니다. (objectId)
+      schema:
+        type : string
+        example: 6273f9e181f72840e1e241ab
+    subjectParams:
+      name: subjectId
+      in: path
+      required: true
+      description: 주제 id 입니다. (objectId)
+      schema:
+        type : string
+        example: 6273f9e181f72840e1e241ab
+  
+tags:
+  - name: users
+    description: 유저 관련 api입니다.
+  - name: posts
+    description: 게시글 관련 api입니다.
+  - name: comments
+    description: 댓글 관련 api입니다.
+  - name: likes
+    description: 좋아요 관련 api입니다.
+  - name: subjects
+    description: 트레이닝별 주제 관련 api입니다.
+  - name: tests
+    description: 문해력 테스트 관련 api입니다.
+  - name: results
+    description: 문해력 테스트 결과 관련 api입니다.
+  - name: quiz
+    description: 단어 퀴즈 관련 api입니다.
+  - name: userWord
+    description: 유저의 단어퀴즈 진행도 관련 api입니다.
+  - name: chart
+    description: 차트 데이터 관련 api입니다.
+paths:
+  # user API
+  /users:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/sortFieldParams'
+        - $ref: '#/components/parameters/sortTypeParams'
+        - $ref: '#/components/parameters/pageParams'
+        - $ref: '#/components/parameters/limitParams'
+      summary: 전체 user 정보
+      description: 전체 user의 정보를 받아옵니다.
+      
+      responses:
+        '200':    # status code
+          description: 전체 user 객체를 배열로 받아옵니다.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: 데이터 리딩시 오류.
+        default:
+          description: Unexpected error
+      tags:
+        - users
+  /users/register:
+    post:
+      summary: 회원가입
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegister'
+      responses: 
+        '201':
+          description: 회원가입 완료
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+        - users
+  /users/login:
+    post:
+      summary: 로그인
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+      responses: 
+        '201':
+          description: 회원가입 완료
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+        - users
+  /oauth/kakao:
+    get:
+      summary: 카카오로그인
+      parameters:
+        - in: query
+          required: true
+          name: code
+          schema: 
+            type: string
+          description: 카카오 로그인 API에서 받은 인가 코드
+      responses: 
+        '201':
+          description: 회원가입 완료
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '200':
+          description: 로그인 완료
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+        - users
+  /users/current:
+    get:
+      summary: 현재 로그인 유저 정보
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: 로그인 유저 정보
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+        - users
+  /users/{userId}:
+    get:
+      summary: 해당 user 조회
+      parameters:
+        - $ref: '#/components/parameters/userParams'
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+        - users
+    put:
+      summary: 해당 user 정보 수정
+      parameters:
+        - $ref: '#/components/parameters/userParams'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nickname:
+                  type: string
+                  example: 나는abcde
+              
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+        - users
+    delete:
+      summary: 해당 user 정보 삭제(탈퇴)
+      parameters:
+        - $ref: '#/components/parameters/userParams'
+      security:
+        - bearerAuth: []        
+      responses: 
+        '200':
+          description: success
+      tags:
+        - users
+  /users/{userId}/uploadImage:
+    post:
+      summary: 해당 user의 프로필 이미지 변경
+      parameters:
+        - $ref: '#/components/parameters/userParams'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                filename:  # Part 3 (an image)
+                  type: string
+                  format: binary
+                  description: 등록할 이미지(파일)
+                prevImage:
+                  type: string
+                  description: 이전 이미지 url(존재시)
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: string
+                    example: success
+      tags:
+        - users
+  /users/{userId}/removeImage:
+    patch:
+      summary: 해당 user의 이미지 삭제
+      parameters:
+        - $ref: '#/components/parameters/userParams'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                  example: 1234.png
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: string
+                    example: success
+      tags:
+        - users
+  
+  # post API      
+  /posts:
+    get:
+      parameters:
+        - in: query
+          name: tag
+          schema:
+            type: string
+          description: "tag별 조회시 ?tag={string}&tag={string}"
+        - $ref: '#/components/parameters/sortFieldParams'
+        - $ref: '#/components/parameters/sortTypeParams'
+        - $ref: '#/components/parameters/pageParams'
+        - $ref: '#/components/parameters/limitParams'  
+      summary: 전체 게시글 정보(필터링 및 정렬 가능)
+      description: 전체 게시글의 정보를 받아옵니다.
+      
+      responses:
+        '200':    # status code
+          description: 전체 user 객체를 배열로 받아옵니다.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          description: 데이터 리딩시 오류.
+        default:
+          description: Unexpected error
+      tags:
+        - posts
+    
+    post:
+      summary: 게시글 등록
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostUpload'
+              
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+      tags:
+        - posts
+  /posts/{postId}:
+    get:
+      summary: 해당 post 조회
+      parameters:
+        - $ref: '#/components/parameters/postParams'
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+      tags:
+        - posts
+    put:
+      summary: 해당 post 정보 수정
+      parameters:
+        - $ref: '#/components/parameters/postParams'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: 오늘은 일요일
+              
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+      tags:
+        - posts
+    delete:
+      summary: 해당 post 정보 삭제
+      parameters:
+        - $ref: '#/components/parameters/postParams'
+      security:
+        - bearerAuth: []        
+      responses: 
+        '200':
+          description: success
+      tags:
+        - posts
+  /users/{userId}/posts:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/userParams'
+        - $ref: '#/components/parameters/sortFieldParams'
+        - $ref: '#/components/parameters/sortTypeParams'
+        - $ref: '#/components/parameters/pageParams'
+        - $ref: '#/components/parameters/limitParams'  
+      summary: 해당 유저의 전체 게시글
+      description: 해당 유저의 전체 게시글의 정보를 받아옵니다.
+      
+      responses:
+        '200':    # status code
+          description: 전체 posts를 배열로 받아옵니다.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          description: 데이터 리딩시 오류.
+        default:
+          description: Unexpected error
+      tags:
+        - posts
+    delete:
+        summary: 해당 user의 전체 게시글 삭제
+        parameters:
+          - $ref: '#/components/parameters/userParams'
+        security:
+          - bearerAuth: []
+        responses: 
+          '200':
+            description: success
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    messages:
+                      type: string
+                      example: success
+        tags:
+          - posts
+  /posts/{postId}/uploadImage:
+    post:
+      summary: 해당 게시글의 대표 이미지 변경
+      parameters:
+        - $ref: '#/components/parameters/postParams'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                filename:  # Part 3 (an image)
+                  type: string
+                  format: binary
+                  description: 등록할 이미지(파일)
+                prevImage:
+                  type: string
+                  description: 이전 이미지 url(존재시)
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: string
+                    example: success
+      tags:
+        - posts
+  /posts/{postId}/removeImage:
+    patch:
+      summary: 해당 user의 이미지 삭제
+      parameters:
+        - $ref: '#/components/parameters/postParams'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                  example: 1234.png
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: string
+                    example: success
+      tags:
+        - posts
+        
+  # comment API  
+  /posts/{postId}/comments:
+    post:
+      summary: 해당 게시글에 comment 생성
+      parameters:
+        - $ref: '#/components/parameters/postParams'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentUpload'
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: string
+                    example: success
+      tags:
+        - comments
+    get:
+      summary: 해당 게시글의 comment 조회
+      parameters:
+        - $ref: '#/components/parameters/postParams'
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+      tags:
+        - comments
+  /comments/{commentId}:
+    get:
+      summary: 해당 comment 조회
+      parameters:
+        - $ref: '#/components/parameters/commentParams'
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+      tags:
+        - comments
+    put:
+      summary: 해당 comment 정보 수정
+      parameters:
+        - $ref: '#/components/parameters/commentParams'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: 오늘은 일요일이에요!
+              
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+      tags:
+        - comments
+    delete:
+      summary: 해당 comment 정보 삭제
+      parameters:
+        - $ref: '#/components/parameters/commentParams'
+      security:
+        - bearerAuth: []        
+      responses: 
+        '200':
+          description: success
+      tags:
+        - comments  
+        
+  # like API
+  /users/{userId}/like:
+    patch:
+      summary: 좋아요
+      parameters:
+        - $ref: '#/components/parameters/userParams'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                postId:
+                  type: string
+                  example: 6273f9e181f72840e1e241ab
+              
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: string
+                    example: success
+      tags:
+        - likes
+  /users/{userId}/cancelLike:
+    patch:
+      summary: 좋아요 취소
+      parameters:
+        - $ref: '#/components/parameters/userParams'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                postId:
+                  type: string
+                  example: 6273f9e181f72840e1e241ab
+              
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: string
+                    example: success
+      tags:
+        - likes
+  /users/{userId}/likes:  
+    get:
+      summary: 유저가 좋아요를 누른 전체 게시글 조회
+      parameters:
+        - $ref: '#/components/parameters/userParams'
+        - $ref: '#/components/parameters/pageParams'
+        - $ref: '#/components/parameters/limitParams'      
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+      tags:
+        - likes
+  /posts/{postId}/likes:
+    get:
+      summary: 해당 게시글에 좋아요를 누른 전체 유저 조회
+      parameters:
+        - $ref: '#/components/parameters/postParams'
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+        - likes
+  
+  
+  # subject API      
+  /subjects:
+    get:
+      summary: level별 subject 조회
+      parameters:
+        - in: query
+          name: level
+          schema:
+            type: integer
+          description: "트레이닝 단계(level)"
+              
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subject'
+      tags:
+        - subjects
+  /subjects/{subjectId}:
+    get:
+      summary: 해당 subject 조회
+      parameters:
+        - $ref: '#/components/parameters/subjectParams'
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subject'
+      tags:
+        - subjects
+  
+  # test API
+  /tests/evaluate:
+    post:
+      summary: 문해력 테스트 평가
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                1:
+                  type: integer
+                  example: 1
+                  
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  score:
+                    type: number
+                    example: 10
+      tags:
+        - tests
+  /tests:
+    get:
+      summary: 전체 테스트 문항 조회
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Test'
+      tags:
+        - tests
+  /tests/{num}:
+    get:
+      summary: 해당 번호의 문항 조회
+      parameters:
+        - in: path
+          required: true
+          name: num
+          schema:
+            type: integer
+          description: "문제 번호"
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Test'
+      tags:
+        - tests  
+  
+  # result API
+  /users/:userId/results:
+    get:
+      summary: 해당 user의 문해력 테스트 결과 조회
+      parameters:
+        - $ref: '#/components/parameters/userParams'
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                    example: "6273ed6490b074ccd0453dd9"
+                  result:
+                    type: integer
+                    example: 10
+      tags:
+        - results
+      
+  
+  # quiz API
+  /quizzes:
+    get:
+      summary: 단어 퀴즈 전체 문제 조회
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quiz'
+      tags:
+        - quiz
+  
+  # userWord API
+  /userwords:
+    post:
+      summary: 단어 퀴즈 진행도 저장(마지막 푼 단어 저장)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+              example: 사흘
+              
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: success
+                  word:
+                    type: string
+                    example: 사흘
+      tags:
+        - userWord
+  /users/{userId}/userword:
+    get:
+      summary: 해당 유저의 단어 퀴즈 진행도(마지막 푼 단어) 조회
+      parameters:
+        - $ref: '#/components/parameters/userParams'
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  word:
+                    type: string
+                    example: 사흘
+      tags:
+        - userWord
+        
+  # chart API
+  /charts:
+    get:
+      summary: 차트 데이터 조회
+      responses: 
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  chartName:
+                    type: string
+                    example: "1"
+                  chartData:
+                    type: object
+                    example: {}
+      tags:
+        - chart

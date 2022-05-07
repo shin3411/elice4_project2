@@ -1,0 +1,49 @@
+.markdown {
+  width: 100%;
+  font-size: 1.4rem;
+  border-radius: 5px;
+  padding: 10px;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  height: auto;
+  border: none;
+  background-color: white;
+  box-sizing: border-box;
+}
+@media screen and (max-width: 900px) {
+  .markdown {
+    display: none;
+  }
+}
+
+.hashWrap {
+  color: rgb(52, 58, 64);
+  font-size: 1.125rem;
+  display: flex;
+  flex-wrap: wrap;
+  letter-spacing: 0px;
+  color: #444241;
+  padding: 2px 2px 8px 2px;
+}
+.tagsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+.tagBox {
+  margin-top: 5px;
+  background: #f9f9f9;
+  border-radius: 2rem;
+  padding: 10px;
+  color: #445656;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  height: fit-content;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.postingButton {
+  display: flex;
+  justify-content: center;
+}

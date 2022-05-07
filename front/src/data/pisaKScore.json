@@ -1,0 +1,32 @@
+[
+  {
+    "Year": 2006,
+    "Maths": 547.0,
+    "Science": 522.0,
+    "Reading": 556.0
+  },
+  {
+    "Year": 2009,
+    "Maths": 546.0,
+    "Science": 538.0,
+    "Reading": 539.0
+  },
+  {
+    "Year": 2012,
+    "Maths": 554.0,
+    "Science": 538.0,
+    "Reading": 536.0
+  },
+  {
+    "Year": 2015,
+    "Maths": 524.0,
+    "Science": 516.0,
+    "Reading": 517.0
+  },
+  {
+    "Year": 2018,
+    "Maths": 526.0,
+    "Science": 519.0,
+    "Reading": 514.0
+  }
+]
